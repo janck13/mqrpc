@@ -6,10 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="api" />
+        <module name="client" />
         <module name="mq-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="api" target="1.8" />
+      <module name="client" target="1.8" />
       <module name="mq-core" target="1.8" />
       <module name="mqrpc" target="1.8" />
     </bytecodeTargetLevel>
