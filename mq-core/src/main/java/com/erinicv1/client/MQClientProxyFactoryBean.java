@@ -14,7 +14,7 @@ public class MQClientProxyFactoryBean extends MQClientProxyFactory implements Fa
     private final static Logger logger = LoggerFactory.getLogger(MQClientProxyFactoryBean.class);
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet(){
         super.afterPropertiesSet();
         if (serviceInterface == null || !serviceInterface.isInterface()){
             throw new IllegalArgumentException("'serviceInterface' is null or is not an interface");
@@ -25,12 +25,12 @@ public class MQClientProxyFactoryBean extends MQClientProxyFactory implements Fa
     public Object getObject() throws Exception {
         logger.debug("建立RPC客户端代理接口[{}]。" + serviceInterface.getCanonicalName());
         MQClientProxy mqClientProxy = new MQClientProxy(this);
-        return Proxy.newProxyInstance(serviceInterface.getClassLoader(),new Class[]{},mqClientProxy);
+        return Proxy.newProxyInstance(serviceInterface.getClassLoader(),new Class[]{this.serviceInterface},mqClientProxy);
     }
 
     @Override
     public Class<?> getObjectType() {
-        return serviceInterface.getClass();
+        return this.serviceInterface;
     }
 
     @Override

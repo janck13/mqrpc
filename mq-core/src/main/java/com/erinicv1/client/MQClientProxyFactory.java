@@ -80,7 +80,7 @@ public class MQClientProxyFactory implements InitializingBean {
         }
     }
 
-    public void afterPropertiesSet()throws Exception{
+    public void afterPropertiesSet(){
         if (connectionFactory == null){
             throw new IllegalArgumentException(" Property connection is need ");
         }

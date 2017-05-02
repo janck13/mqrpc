@@ -9,6 +9,7 @@
         <module name="api" />
         <module name="client" />
         <module name="mq-core" />
+        <module name="server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -16,6 +17,7 @@
       <module name="client" target="1.8" />
       <module name="mq-core" target="1.8" />
       <module name="mqrpc" target="1.8" />
+      <module name="server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -18,9 +18,11 @@
     <rabbit:connection-factory id="connectionFactory" executor="amqpConnectionTaskExecutor" host="127.0.0.1" port="5672" username="admin" password="admin"
                                virtual-host="/kl"/>
 
-    <bean id="myService" class="com.erinicv1.client.MQClientProxyFactoryBean">
+    <bean id="ServiceImpl" class="com.erinicv1.apiImpl.ServiceImpl"/>
+
+    <bean id="MyServiceEndpoint" class="com.erinicv1.server.MQServerEndpoint">
+        <constructor-arg index="0" ref="ServiceImpl"/>
         <property name="connectionFactory" ref="connectionFactory"/>
-        <property name="serviceInterface" value="com.erinicv1.api.Service"/>
     </bean>
 
 </beans>
