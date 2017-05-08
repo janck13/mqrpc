@@ -21,18 +21,34 @@ public class HessianSerializerUtil {
         return serializerFactory;
     }
 
+    /**
+     * 转hessian输入流
+     * @param inputStream
+     * @return
+     */
     public static AbstractHessianInput getHessianInput(InputStream inputStream){
         AbstractHessianInput input = new Hessian2Input(inputStream);
         input.setSerializerFactory(serializerFactory);
         return input;
     }
 
+    /**
+     * 转hessian输出流
+     * @param outputStream
+     * @return
+     */
     public static AbstractHessianOutput getHessianOutput(OutputStream outputStream){
         AbstractHessianOutput output = new Hessian2Output(outputStream);
         output.setSerializerFactory(serializerFactory);
         return output;
     }
 
+    /**
+     * 转hessian输出流
+     * @param headerType
+     * @param outputStream
+     * @return
+     */
     public static AbstractHessianOutput getHessianOutput(HessianInputFactory.HeaderType headerType,OutputStream outputStream){
         AbstractHessianOutput output;
         HessianFactory factory = new HessianFactory();
@@ -51,6 +67,14 @@ public class HessianSerializerUtil {
         return output;
     }
 
+    /**
+     * 生产者响应消息体
+     * @param response
+     * @param method
+     * @param isCompress
+     * @return
+     * @throws Throwable
+     */
     public static Object clienResponseBody(byte[] response, Method method,boolean isCompress)throws Throwable{
         AbstractHessianInput input;
         InputStream is = new ByteArrayInputStream(response);
@@ -76,6 +100,14 @@ public class HessianSerializerUtil {
         }
     }
 
+    /**
+     * 生产者请求消息体
+     * @param requests
+     * @param method
+     * @param isCompress
+     * @return
+     * @throws IOException
+     */
     public static byte[] clientRequestBody(Object[] requests, Method method, boolean isCompress)throws IOException{
         OutputStream os;
         ByteArrayOutputStream payload = new ByteArrayOutputStream(256);
@@ -97,6 +129,15 @@ public class HessianSerializerUtil {
         return payload.toByteArray();
     }
 
+    /**
+     * 消费端调用成功响应体
+     * @param requests
+     * @param isCompress
+     * @param serviceImpl
+     * @param serviceApi
+     * @return
+     * @throws Exception
+     */
     public static byte[] serverResponseBody(byte[] requests, boolean isCompress,Object serviceImpl,Class serviceApi)throws Exception{
         InputStream inputStream = new ByteArrayInputStream(requests);
         if (isCompress){
@@ -120,6 +161,12 @@ public class HessianSerializerUtil {
         return bout.toByteArray();
     }
 
+    /**
+     * 消费端调用异常
+     * @param requests
+     * @param throwable
+     * @return
+     */
     public static byte[] serverFautl(byte[] requests, Throwable throwable){
         try{
             InputStream is = new ByteArrayInputStream(requests);

@@ -30,7 +30,7 @@ public class ListenerMethod {
 
 
     public Message handleMessage(Message message){
-        logger.info(" " + serviceApi);
+        System.out.println("调用-服务名："+serviceImpl.getClass().getName());
         logger.debug("message receive : " + message);
 
 

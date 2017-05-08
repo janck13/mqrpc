@@ -15,8 +15,8 @@
     <task:executor id="amqpConnectionTaskExecutor" pool-size="5"/>
 
     <!-- RabbitMQ连接器 -->
-    <rabbit:connection-factory id="connectionFactory" executor="amqpConnectionTaskExecutor" host="127.0.0.1" port="5672" username="admin" password="admin"
-                               virtual-host="/kl"/>
+    <rabbit:connection-factory id="connectionFactory" executor="amqpConnectionTaskExecutor" host="127.0.0.1" port="5672" username="guest" password="guest"
+                               virtual-host="/"/>
 
     <bean id="myService" class="com.erinicv1.client.MQClientProxyFactoryBean">
         <property name="connectionFactory" ref="connectionFactory"/>

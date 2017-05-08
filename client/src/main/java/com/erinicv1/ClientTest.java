@@ -43,7 +43,7 @@ public class ClientTest {
     private class Task implements Callable{
         private Service service;
 
-        Task(Service service){
+        public Task(Service service){
             this.service = service;
         }
         @Override
