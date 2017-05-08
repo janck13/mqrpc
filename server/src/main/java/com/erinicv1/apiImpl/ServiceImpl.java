@@ -12,13 +12,13 @@ public class ServiceImpl implements Service {
 
     @Override
     public String echo(String message) {
-        System.out.println(LocalDateTime.now().toLocalTime() + " ===> message echo ");
+        System.out.println(LocalDateTime.now().toLocalTime() + " ===> Service.echo 被调用了");
         return message + " hello";
     }
 
     @Override
     public Student getStudent(Student student) {
-        System.out.println(LocalDateTime.now().toLocalTime() + " ===> student echo ");
+        System.out.println(LocalDateTime.now().toLocalTime() + " ===> Service.getStudent 被调用了");
         return new Student("xl",18,true);
     }
 }

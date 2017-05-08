@@ -36,10 +36,12 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
     private String queuePrefix;
 
     public MQServerEndpoint(){
+        setServiceAPI(findRemote(getClass()));
         setServiceImpl(this);
     }
 
     public MQServerEndpoint(Object serviceImpl){
+        setServiceAPI(findRemote(serviceImpl.getClass()));
         setServiceImpl(serviceImpl);
     }
 
@@ -83,7 +85,7 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
         }
 
         Class[] classes = clz.getInterfaces();
-        if (classes != null && !classes[0].equals(SpringProxy.class)){
+        if (classes.length > 0 && !classes[0].equals(SpringProxy.class)){
             return classes[0];
         }else {
             return findRemote(clz.getSuperclass());
@@ -98,8 +100,8 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
         return requestQueueName;
     }
 
-    private void createQueue(AmqpAdmin amqpAdmin,String naem){
-        Queue queue = new Queue(naem,false,false,false);
+    private void createQueue(AmqpAdmin amqpAdmin,String name){
+        Queue queue = new Queue(name,false,false,false);
         amqpAdmin.declareQueue(queue);
     }
 
@@ -139,8 +141,8 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
         if (connectionFactory == null){
             throw new IllegalArgumentException(" Property connection is need ");
         }
-        admin = new RabbitAdmin(connectionFactory);
-        run();
+        this.admin = new RabbitAdmin(connectionFactory);
+        this.run();
     }
 
     @Override
