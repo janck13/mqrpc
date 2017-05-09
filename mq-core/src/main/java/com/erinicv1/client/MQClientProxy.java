@@ -57,7 +57,7 @@ public class MQClientProxy implements InvocationHandler {
         MessageProperties properties = message.getMessageProperties();
         boolean isCompress = "deflate".equals(properties.getContentEncoding());
 
-        return HessianSerializerUtil.clienResponseBody(message.getBody(),method,isCompress);
+        return HessianSerializerUtil.clienResponseBody(response.getBody(),method,isCompress);
     }
 
 

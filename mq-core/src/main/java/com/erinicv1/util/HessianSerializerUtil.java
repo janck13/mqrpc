@@ -157,6 +157,7 @@ public class HessianSerializerUtil {
         if (out instanceof DeflaterOutputStream){
             ((DeflaterOutputStream) out).finish();
         }
+        out.flush();
         out.close();
         return bout.toByteArray();
     }
