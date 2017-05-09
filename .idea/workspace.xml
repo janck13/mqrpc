@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1dfd0b34-c234-432b-8e3b-dae0346f1f80" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxy.java" afterPath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/util/HessianSerializerUtil.java" afterPath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/util/HessianSerializerUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactory.java" afterPath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactoryBean.java" afterPath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactoryBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/ListenerMethod.java" afterPath="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/ListenerMethod.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -30,37 +31,92 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MQClientProxy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxy.java">
+      <file leaf-file-name="applicationContext-server.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/main/resources/applicationContext-server.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="554">
-              <caret line="50" column="25" lean-forward="false" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
-              <folding>
-                <element signature="e#657#658#0" expanded="true" />
-                <element signature="e#695#696#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServiceImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/com/erinicv1/apiImpl/ServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="21" column="34" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+            <state relative-caret-position="528">
+              <caret line="24" column="65" lean-forward="false" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="65" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Student.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/src/main/java/com/erinicv1/pojo/Student.java">
+      <file leaf-file-name="MQServerEndpoint.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/MQServerEndpoint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="24" column="29" lean-forward="false" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
-              <folding>
-                <element signature="e#472#473#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1210">
+              <caret line="109" column="14" lean-forward="false" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MQClientProxyFactoryBean.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactoryBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="16" column="19" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/com/erinicv1/apiImpl/ServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MQClientProxyFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="83" column="11" lean-forward="false" selection-start-line="83" selection-start-column="11" selection-end-line="83" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClientTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/com/erinicv1/ClientTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MQClientProxy.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="164">
+              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HessianSerializerUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/util/HessianSerializerUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-34">
+              <caret line="140" column="25" lean-forward="false" selection-start-line="140" selection-start-column="25" selection-end-line="140" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ListenerMethod.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/ListenerMethod.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="362">
+              <caret line="45" column="59" lean-forward="false" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -97,9 +153,7 @@
         <option value="$PROJECT_DIR$/api/src/main/java/com/erinicv1/api/Service.java" />
         <option value="$PROJECT_DIR$/client/pom.xml" />
         <option value="$PROJECT_DIR$/client/src/main/java/com/erinicv1/SpringBootMqClientApplication.java" />
-        <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactoryBean.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactory.java" />
         <option value="$PROJECT_DIR$/server/pom.xml" />
         <option value="$PROJECT_DIR$/server/src/main/java/com/erinic/apiImpl/ServiceImpl.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/com/erinic/ServiceImpl.java" />
@@ -112,12 +166,14 @@
         <option value="$PROJECT_DIR$/server/src/main/java/com/erinicv1/MQPRCStart5.java" />
         <option value="$PROJECT_DIR$/server/src/main/resources/applicationContext-server.xml" />
         <option value="$PROJECT_DIR$/client/src/main/resources/applicationContext-client.xml" />
-        <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/ListenerMethod.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/com/erinicv1/ClientTest.java" />
-        <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/MQServerEndpoint.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/com/erinicv1/apiImpl/ServiceImpl.java" />
         <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/util/HessianSerializerUtil.java" />
         <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxy.java" />
+        <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactory.java" />
+        <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactoryBean.java" />
+        <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/ListenerMethod.java" />
+        <option value="$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/MQServerEndpoint.java" />
       </list>
     </option>
   </component>
@@ -1344,12 +1400,12 @@
       <workItem from="1493703653177" duration="4480000" />
       <workItem from="1494222153499" duration="695000" />
       <workItem from="1494229755684" duration="6622000" />
-      <workItem from="1494311541002" duration="1102000" />
+      <workItem from="1494311541002" duration="3567000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33218000" />
+    <option name="totallyTimeSpent" value="35683000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1924" height="1056" extended-state="0" />
@@ -1396,7 +1452,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1649,34 +1705,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/resources/applicationContext-server.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="22" column="69" lean-forward="false" selection-start-line="22" selection-start-column="59" selection-end-line="22" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/MQServerEndpoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2464">
-          <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/4.3.4.RELEASE/spring-beans-4.3.4.RELEASE.jar!/org/springframework/beans/factory/support/FactoryBeanRegistrySupport.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1760">
           <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/ListenerMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1100">
-          <caret line="54" column="0" lean-forward="false" selection-start-line="53" selection-start-column="65" selection-end-line="54" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1686,24 +1718,8 @@
         <state relative-caret-position="242">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/com/erinicv1/ClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="52" column="133" lean-forward="false" selection-start-line="52" selection-start-column="129" selection-end-line="52" selection-end-column="133" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1342">
-          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1715,47 +1731,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactoryBean.java">
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/erinicv1/pojo/Student.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+        <state relative-caret-position="422">
+          <caret line="24" column="29" lean-forward="false" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+          <folding>
+            <element signature="e#472#473#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/resources/applicationContext-server.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="24" column="65" lean-forward="false" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/com/erinicv1/ClientTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/util/HessianSerializerUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2552">
-          <caret line="26" column="14" lean-forward="true" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+        <state relative-caret-position="-34">
+          <caret line="140" column="25" lean-forward="false" selection-start-line="140" selection-start-column="25" selection-end-line="140" selection-end-column="25" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/erinicv1/pojo/Student.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="24" column="29" lean-forward="false" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
-          <folding>
-            <element signature="e#472#473#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="50" column="25" lean-forward="false" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
-          <folding>
-            <element signature="e#657#658#0" expanded="true" />
-            <element signature="e#695#696#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/com/erinicv1/apiImpl/ServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="21" column="34" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+        <state relative-caret-position="308">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/ListenerMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="45" column="59" lean-forward="false" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactoryBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="16" column="19" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/client/MQClientProxyFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="83" column="11" lean-forward="false" selection-start-line="83" selection-start-column="11" selection-end-line="83" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mq-core/src/main/java/com/erinicv1/server/MQServerEndpoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1210">
+          <caret line="109" column="14" lean-forward="false" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
           <folding />
         </state>
       </provider>

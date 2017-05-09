@@ -29,6 +29,11 @@ public class ListenerMethod {
     }
 
 
+    /**
+     *  handleMessage 是 MessageListenerAdapter的默认消息处理器
+     * @param message
+     * @return
+     */
     public Message handleMessage(Message message){
         System.out.println("调用-服务名："+serviceImpl.getClass().getName());
         logger.debug("message receive : " + message);

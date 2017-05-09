@@ -107,7 +107,7 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
 
     public void run(){
         logger.debug("Launching endpoint for service : " + serviceAPI.getSimpleName() );
-
+        //添加监听
         connectionFactory.addConnectionListener(new ConnectionListener() {
             @Override
             public void onCreate(Connection connection) {

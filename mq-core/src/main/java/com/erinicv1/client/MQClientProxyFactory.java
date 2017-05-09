@@ -25,9 +25,9 @@ public class MQClientProxyFactory implements InitializingBean {
 
     private AtomicBoolean initializing = new AtomicBoolean(false);
 
-    private String queuePrefix;
+    private String queuePrefix; //队列名前缀
 
-    private long timeOut = -1;
+    private long timeOut = -1; // 响应时间，大于0才有效
 
     private boolean compress = true;
 
@@ -38,6 +38,12 @@ public class MQClientProxyFactory implements InitializingBean {
     }
 
 
+    /**
+     *  创建一个请求队列和设置exchange处理机制为Direct：单播-完全匹配
+     * @param amqpAdmin
+     * @param queueName 队列的名字
+     * @param exchangeName exchange的名字
+     */
     public void createRequestsQueue(AmqpAdmin amqpAdmin,String queueName,String exchangeName){
         Queue queue = new Queue(queueName,false,false,false);
         amqpAdmin.declareQueue(queue);
@@ -48,6 +54,10 @@ public class MQClientProxyFactory implements InitializingBean {
 
     }
 
+    /**
+     * 返回服务队列的名字
+     * @return
+     */
     public String getRequestQueueName(){
         String queueName = serviceInterface.getSimpleName();
         if (queuePrefix != null){
@@ -57,6 +67,10 @@ public class MQClientProxyFactory implements InitializingBean {
         return queueName;
     }
 
+    /**
+     * 返回服务交换机的名字
+     * @return
+     */
     public String getRequestExchangeName(){
         String queueName = serviceInterface.getSimpleName();
         if (queuePrefix != null){
@@ -66,7 +80,11 @@ public class MQClientProxyFactory implements InitializingBean {
         return queueName;
     }
 
+    /**
+     *  初始化
+     */
     public void initilizingQueue(){
+        // 使用AtomicBoolean 的CAS方法，保证只初始化一次
         if (!initializing.compareAndSet(false,true)){
             return ;
         }
