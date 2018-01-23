@@ -21,6 +21,7 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
 
     private final static Logger logger = LoggerFactory.getLogger(MQServerEndpoint.class);
 
+    private static final Integer DEFAULT_CONSUMERS = 50;
     private ConnectionFactory connectionFactory;
 
     private Class<?> serviceAPI;
@@ -31,12 +32,13 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
 
     private AmqpAdmin admin;
 
-    private int concurrnetCusomer;
+    private int concurrentConsumers;
 
     private String queuePrefix;
 
     public MQServerEndpoint(){
         setServiceAPI(findRemote(getClass()));
+        concurrentConsumers = DEFAULT_CONSUMERS;
         setServiceImpl(this);
     }
 
@@ -54,13 +56,6 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
     }
 
 
-    public int getConcurrnetCusomer() {
-        return concurrnetCusomer;
-    }
-
-    public void setConcurrnetCusomer(int concurrnetCusomer) {
-        this.concurrnetCusomer = concurrnetCusomer;
-    }
 
     public String getQueuePrefix() {
         return queuePrefix;
@@ -130,8 +125,8 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
         simpleMessageListenerContainer.setQueueNames(getRequestQueueName(serviceAPI));
         simpleMessageListenerContainer.setMessageListener(adapter);
 
-        if (this.concurrnetCusomer > 0){
-            simpleMessageListenerContainer.setConcurrentConsumers(concurrnetCusomer);
+        if (this.concurrentConsumers > 0){
+            simpleMessageListenerContainer.setConcurrentConsumers(concurrentConsumers);
         }
 
         simpleMessageListenerContainer.start();
@@ -148,5 +143,14 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean {
     @Override
     public void destroy() throws Exception {
         simpleMessageListenerContainer.destroy();
+    }
+
+
+    public int getConcurrentConsumers() {
+        return concurrentConsumers;
+    }
+
+    public void setConcurrentConsumers(int concurrentConsumers) {
+        this.concurrentConsumers = concurrentConsumers;
     }
 }
