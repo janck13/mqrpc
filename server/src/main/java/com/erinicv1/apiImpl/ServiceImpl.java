@@ -1,5 +1,6 @@
 package com.erinicv1.apiImpl;
 
+import com.erinicv1.annotation.RpcService;
 import com.erinicv1.api.Service;
 import com.erinicv1.pojo.Student;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 /**
  * Created by Administrator on 2017/5/2 0002.
  */
+@RpcService(Service.class)
 public class ServiceImpl implements Service {
 
     @Override

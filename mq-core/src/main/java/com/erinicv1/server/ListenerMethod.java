@@ -1,10 +1,18 @@
 package com.erinicv1.server;
 
+import com.erinicv1.domain.RpcRequest;
+import com.erinicv1.domain.RpcResponse;
 import com.erinicv1.util.HessianSerializerUtil;
+import com.erinicv1.utils.SerializationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/4/26 0026.
@@ -13,21 +21,12 @@ public class ListenerMethod {
 
     private Logger logger = LoggerFactory.getLogger(ListenerMethod.class);
 
-    private final static String SPRING_CORRELATION_ID = "spring_reply_correlation";
 
-    private Class serviceApi;
+    private Map<String,Object> handlerMap = new HashMap<>();
 
-    private Object serviceImpl;
-
-    private ListenerMethod(Class serviceApi,Object serviceImpl){
-        this.serviceApi = serviceApi;
-        this.serviceImpl = serviceImpl;
+    public ListenerMethod(Map<String,Object> handlerMap){
+        this.handlerMap = handlerMap;
     }
-
-    public static ListenerMethod getNewInstance(Class serviceApi,Object serviceImpl){
-        return new ListenerMethod(serviceApi,serviceImpl);
-    }
-
 
     /**
      *  handleMessage 是 MessageListenerAdapter的默认消息处理器
@@ -35,29 +34,27 @@ public class ListenerMethod {
      * @return
      */
     public Message handleMessage(Message message){
-        System.out.println("调用-服务名："+serviceImpl.getClass().getName());
+        RpcRequest rpcRequest = SerializationUtil.deserialize(message.getBody(), RpcRequest.class);
+        String requestName = rpcRequest.getServiceName();
+        Object o = handlerMap.get(requestName);
+        RpcResponse rpcResponse = new RpcResponse();
+        try {
+            Method method = o.getClass().getMethod(rpcRequest.getMethodName(),rpcRequest.getParamTypes());
+            method.setAccessible(true);
+            Object result = method.invoke(o,rpcRequest.getParams());
+            rpcResponse.setResult(result);
+        }catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e){
+            rpcResponse.setError(e.getMessage());
+        }
+
+
+        byte[] array = SerializationUtil.serialize(rpcResponse);
+
         logger.debug("message receive : " + message);
 
-
-        MessageProperties messageProperties = message.getMessageProperties();
-        boolean compressed = "deflate".equals(messageProperties.getContentEncoding());
-        byte[] response;
-        try{
-            response = HessianSerializerUtil.serverResponseBody(message.getBody(),compressed,serviceImpl,serviceApi);
-
-        }catch (Throwable e){
-            logger.error(" handel message fail : ",e);
-            compressed = false;
-            response = HessianSerializerUtil.serverFautl(message.getBody(),e);
-        }
-
         MessageProperties properties = new MessageProperties();
-        properties.setContentType("x-application/hessian");
-        if (compressed){
-            properties.setContentEncoding("deflate");
-        }
-        properties.setHeader(SPRING_CORRELATION_ID,messageProperties.getHeaders().get(SPRING_CORRELATION_ID));
+        properties.setContentType("x-application/protostuff");
 
-        return new Message(response,properties);
+        return new Message(array,properties);
     }
 }

@@ -1,6 +1,9 @@
 package com.erinicv1.client;
 
+import com.erinicv1.domain.RpcRequest;
+import com.erinicv1.domain.RpcResponse;
 import com.erinicv1.util.HessianSerializerUtil;
+import com.erinicv1.utils.SerializationUtil;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -34,15 +37,18 @@ public class MQClientProxy implements InvocationHandler {
         }else if (ReflectionUtils.isHashCodeMethod(method)){
             factory.hashCode();
         }else if (ReflectionUtils.isToStringMethod(method)){
-            return "[HessianProxy " + proxy.getClass() + "]";
+            return "[protostuff " + proxy.getClass() + "]";
         }
-
+        RpcRequest rpcRequest = new RpcRequest();
+        rpcRequest.setMethodName(method.getName());
+        rpcRequest.setServiceName(method.getDeclaringClass().getName());
+        rpcRequest.setParamTypes(method.getParameterTypes());
+        rpcRequest.setParams(args);
+        byte[] playOut = SerializationUtil.serialize(rpcRequest);
         RabbitTemplate rabbitTemplate = factory.getRabbitTemplate();
-        byte[] playOut = HessianSerializerUtil.clientRequestBody(args,method,factory.isCompress());
-
+//
         MessageProperties messageProperties = new MessageProperties();
-        messageProperties.setContentEncoding("deflate");
-        messageProperties.setContentType("x-application/hessian");
+        messageProperties.setContentType("x-application/protostuff");
 
         Message message = new Message(playOut,messageProperties);
         Message response = rabbitTemplate.sendAndReceive(
@@ -54,10 +60,13 @@ public class MQClientProxy implements InvocationHandler {
             throw new TimeoutException("RPC服务响应超时");
         }
 
-        MessageProperties properties = message.getMessageProperties();
-        boolean isCompress = "deflate".equals(properties.getContentEncoding());
+        RpcResponse rpcResponse = SerializationUtil.deserialize(response.getBody(),RpcResponse.class);
 
-        return HessianSerializerUtil.clienResponseBody(response.getBody(),method,isCompress);
+        if (rpcResponse.getError() != null && !"".equals(rpcResponse.getError())){
+            throw new RuntimeException(rpcResponse.getError());
+        }
+
+        return rpcResponse.getResult();
     }
 
 
