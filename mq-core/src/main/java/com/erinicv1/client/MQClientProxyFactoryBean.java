@@ -13,16 +13,6 @@ public class MQClientProxyFactoryBean extends MQClientProxyFactory implements Fa
 
     private final static Logger logger = LoggerFactory.getLogger(MQClientProxyFactoryBean.class);
 
-    /**
-     *  先保证父类的初始化方法
-     */
-    @Override
-    public void afterPropertiesSet(){
-        super.afterPropertiesSet();
-        if (serviceInterface == null || !serviceInterface.isInterface()){
-            throw new IllegalArgumentException("'serviceInterface' is null or is not an interface");
-        }
-    }
 
     /**
      * 返回代理类
@@ -31,14 +21,14 @@ public class MQClientProxyFactoryBean extends MQClientProxyFactory implements Fa
      */
     @Override
     public Object getObject() throws Exception {
-        logger.debug("建立RPC客户端代理接口[{}]。" + serviceInterface.getCanonicalName());
+//        logger.debug("建立RPC客户端代理接口[{}]。" + serviceInterface.getCanonicalName());
         MQClientProxy mqClientProxy = new MQClientProxy(this);
-        return Proxy.newProxyInstance(serviceInterface.getClassLoader(),new Class[]{this.serviceInterface},mqClientProxy);
+        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),classList.toArray(new Class[classList.size()]),mqClientProxy);
     }
 
     @Override
     public Class<?> getObjectType() {
-        return this.serviceInterface;
+        return Object.class;
     }
 
     @Override

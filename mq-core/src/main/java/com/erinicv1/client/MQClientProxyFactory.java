@@ -1,5 +1,7 @@
 package com.erinicv1.client;
 
+import com.erinicv1.annotation.ServiceFind;
+import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
@@ -8,6 +10,9 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.InitializingBean;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -31,11 +36,9 @@ public class MQClientProxyFactory implements InitializingBean {
 
     private boolean compress = true;
 
-    protected Class<?> serviceInterface;
+    protected List<Class<?>> classList = new ArrayList<>();
 
-    public MQClientProxyFactory(){
 
-    }
 
 
     /**
@@ -54,31 +57,6 @@ public class MQClientProxyFactory implements InitializingBean {
 
     }
 
-    /**
-     * 返回服务队列的名字
-     * @return
-     */
-    public String getRequestQueueName(){
-        String queueName = serviceInterface.getSimpleName();
-        if (queuePrefix != null){
-            queueName = queuePrefix + "." + queueName;
-        }
-
-        return queueName;
-    }
-
-    /**
-     * 返回服务交换机的名字
-     * @return
-     */
-    public String getRequestExchangeName(){
-        String queueName = serviceInterface.getSimpleName();
-        if (queuePrefix != null){
-            queueName = queuePrefix + "." + queueName;
-        }
-
-        return queueName;
-    }
 
     /**
      *  初始化
@@ -92,7 +70,16 @@ public class MQClientProxyFactory implements InitializingBean {
             if (admin == null) {
                 admin = new RabbitAdmin(connectionFactory);
             }
-            createRequestsQueue(admin, getRequestQueueName(), getRequestExchangeName());
+            Reflections reflections = new Reflections("com.erinicv1.service");
+            Set<Class<?>> set = reflections.getTypesAnnotatedWith(ServiceFind.class);
+            List<Class<?>> list = new ArrayList<>();
+            for (Class c : set){
+                if (c.isInterface()){
+                    createRequestsQueue(admin,c.getSimpleName(),c.getSimpleName());
+                    list.add(c);
+                }
+            }
+            this.classList = list;
         }finally {
             initializing.compareAndSet(true,false);
         }
@@ -150,15 +137,4 @@ public class MQClientProxyFactory implements InitializingBean {
     }
 
 
-
-    public Class<?> getServiceInterface() {
-        return serviceInterface;
-    }
-
-    public void setServiceInterface(Class<?> serviceInterface) {
-        if (serviceInterface == null || !serviceInterface.isInterface()){
-            throw new IllegalArgumentException("'serviceInterface' is null or is not an interface");
-        }
-        this.serviceInterface = serviceInterface;
-    }
 }

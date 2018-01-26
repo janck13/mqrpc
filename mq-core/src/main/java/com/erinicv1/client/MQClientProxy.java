@@ -51,9 +51,11 @@ public class MQClientProxy implements InvocationHandler {
         messageProperties.setContentType("x-application/protostuff");
 
         Message message = new Message(playOut,messageProperties);
+        String name = method.getDeclaringClass().getSimpleName();
+        String ex =  factory.getClass().getName();
         Message response = rabbitTemplate.sendAndReceive(
-                factory.getRequestQueueName(),
-                factory.getRequestExchangeName(),
+                name,
+               name,
                 message);
 
         if (response == null){

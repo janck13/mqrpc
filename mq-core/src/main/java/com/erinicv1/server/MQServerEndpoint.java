@@ -33,10 +33,6 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean,Applica
     private static final Integer DEFAULT_CONSUMERS = 50;
     private ConnectionFactory connectionFactory;
 
-    private Class<?> serviceAPI;
-
-    private Object serviceImpl;
-
     private SimpleMessageListenerContainer simpleMessageListenerContainer;
 
     private Map<String,Object> handlerMap = new HashMap<>();
@@ -46,8 +42,6 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean,Applica
     private AmqpAdmin admin;
 
     private int concurrentConsumers;
-
-    private String queuePrefix;
 
 
     @Override
@@ -64,20 +58,11 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean,Applica
         this.queueNames = queueNames;
     }
 
-    private void processQueueName(){
-
-    }
 
     public MQServerEndpoint(){
-        setServiceAPI(findRemote(getClass()));
         concurrentConsumers = DEFAULT_CONSUMERS;
-        setServiceImpl(this);
     }
 
-    public MQServerEndpoint(Object serviceImpl){
-        setServiceAPI(findRemote(serviceImpl.getClass()));
-        setServiceImpl(serviceImpl);
-    }
 
     public ConnectionFactory getConnectionFactory() {
         return connectionFactory;
@@ -89,43 +74,6 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean,Applica
 
 
 
-    public String getQueuePrefix() {
-        return queuePrefix;
-    }
-
-    public void setQueuePrefix(String queuePrefix) {
-        this.queuePrefix = queuePrefix;
-    }
-
-    public void setServiceImpl(Object serviceImpl){
-        this.serviceImpl = serviceImpl;
-        setServiceAPI( findRemote(serviceImpl.getClass()));
-    }
-
-    public void setServiceAPI(Class<?> serviceAPI){
-        this.serviceAPI = serviceAPI;
-    }
-
-    private Class<?> findRemote(Class<?> clz){
-        if (null == clz){
-            return null;
-        }
-
-        Class[] classes = clz.getInterfaces();
-        if (classes.length > 0 && !classes[0].equals(SpringProxy.class)){
-            return classes[0];
-        }else {
-            return findRemote(clz.getSuperclass());
-        }
-    }
-
-    private String getRequestQueueName(Class<?> clz){
-        String requestQueueName = clz.getSimpleName();
-        if (queuePrefix != null){
-            requestQueueName = queuePrefix +"." + requestQueueName;
-        }
-        return requestQueueName;
-    }
 
     private void createQueue(AmqpAdmin amqpAdmin,String name){
         Queue queue = new Queue(name,false,false,false);
@@ -133,7 +81,7 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean,Applica
     }
 
     public void run(){
-        logger.debug("Launching endpoint for service : " + serviceAPI.getSimpleName() );
+        logger.debug(" start create queues of size : " + queueNames.size() );
         //添加监听
         for (String queueName : queueNames){
             connectionFactory.addConnectionListener(new ConnectionListener() {
@@ -148,17 +96,6 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean,Applica
                 }
             });
         }
-//        connectionFactory.addConnectionListener(new ConnectionListener() {
-//            @Override
-//            public void onCreate(Connection connection) {
-//                createQueue(admin,getRequestQueueName(serviceAPI));
-//            }
-//
-//            @Override
-//            public void onClose(Connection connection) {
-//
-//            }
-//        });
 
         MessageListenerAdapter adapter = new MessageListenerAdapter(new ListenerMethod(handlerMap));
         adapter.setMessageConverter(null);
@@ -167,7 +104,6 @@ public class MQServerEndpoint implements InitializingBean,DisposableBean,Applica
         simpleMessageListenerContainer = new SimpleMessageListenerContainer();
 
         simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
-//        simpleMessageListenerContainer.setQueueNames(getRequestQueueName(serviceAPI));
         simpleMessageListenerContainer.setQueueNames(queueNames.toArray(new String[queueNames.size()]));
         simpleMessageListenerContainer.setMessageListener(adapter);
 

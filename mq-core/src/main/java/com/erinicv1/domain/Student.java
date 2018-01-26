@@ -1,4 +1,4 @@
-package com.erinicv1.pojo;
+package com.erinicv1.domain;
 
 import java.io.Serializable;
 

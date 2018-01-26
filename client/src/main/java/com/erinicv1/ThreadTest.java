@@ -1,6 +1,6 @@
 package com.erinicv1;
 
-import com.erinicv1.api.Service;
+import com.erinicv1.service.Service;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.concurrent.CountDownLatch;

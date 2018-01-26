@@ -45,6 +45,7 @@ public class ListenerMethod {
             rpcResponse.setResult(result);
         }catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e){
             rpcResponse.setError(e.getMessage());
+            logger.error(" process request has an error : {}",e.getMessage());
         }
 
 

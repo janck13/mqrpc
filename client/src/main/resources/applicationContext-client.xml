@@ -20,7 +20,6 @@
 
     <bean id="myService" class="com.erinicv1.client.MQClientProxyFactoryBean">
         <property name="connectionFactory" ref="connectionFactory"/>
-        <property name="serviceInterface" value="com.erinicv1.api.Service"/>
     </bean>
 
 </beans>
