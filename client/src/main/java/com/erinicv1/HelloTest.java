@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 
 public class HelloTest {
 
+
     public static void main(String[] args){
         GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext("classpath:applicationContext-client.xml");
         Service service = (Service)applicationContext.getBean("myService");
