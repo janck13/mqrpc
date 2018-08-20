@@ -25,7 +25,6 @@ public class MQClientProxy implements InvocationHandler {
 
     private MQClientProxyFactory factory;
 
-
     public MQClientProxy(MQClientProxyFactory factory){
         this.factory = factory;
     }
@@ -35,6 +34,9 @@ public class MQClientProxy implements InvocationHandler {
         //判断
         System.out.println("start");
         System.out.println("end");
+        if (args == null){
+            return null;
+        }
         if (ReflectionUtils.isEqualsMethod(method)){
             Object value = args[0];
             if (value == null || !Proxy.isProxyClass(value.getClass())){
