@@ -1,5 +1,6 @@
 package com.erinicv1.client;
 
+import com.erinicv1.domain.Person;
 import com.erinicv1.domain.RpcRequest;
 import com.erinicv1.domain.RpcResponse;
 import com.erinicv1.util.HessianSerializerUtil;
@@ -12,6 +13,9 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -21,12 +25,16 @@ public class MQClientProxy implements InvocationHandler {
 
     private MQClientProxyFactory factory;
 
+
     public MQClientProxy(MQClientProxyFactory factory){
         this.factory = factory;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        //判断
+        System.out.println("start");
+        System.out.println("end");
         if (ReflectionUtils.isEqualsMethod(method)){
             Object value = args[0];
             if (value == null || !Proxy.isProxyClass(value.getClass())){
@@ -72,4 +80,40 @@ public class MQClientProxy implements InvocationHandler {
     }
 
 
+    public static void main(String[] args) {
+        int[] array = {1,2,3,4};
+        change(array);
+        System.out.println(Arrays.toString(array));
+        Person person = new Person();
+        person.setAge(2);
+        change2(person);
+        System.out.println(person.getAge());
+        List<Person>  list = new ArrayList<>();
+        Person person2 = new Person();
+        list.add(person2);
+        person2.setAge(3);
+        change(list);
+        System.out.println(list.get(0).getAge());
+    }
+
+    private static void change(int[] array){
+        int[] nums = {1,2,1};
+        array = nums;
+        System.out.println(Arrays.toString(array) + ">>>>");
+    }
+
+    private static void change2(Person person){
+        Person person1 = new Person();
+        person1.setAge(12);
+        person = person1;
+        System.out.println(person.getAge() + ">>>");
+    }
+
+    private static void change(List<Person> list){
+        Person person1 = new Person();
+        person1.setAge(12);
+        Person person = list.get(0);
+        person = person1;
+        System.out.println(person.getAge() + ">>>>");
+    }
 }
